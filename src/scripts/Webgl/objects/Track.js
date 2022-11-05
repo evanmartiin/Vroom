@@ -1,29 +1,48 @@
 import app from 'scripts/App.js';
-import { Group } from 'three';
+import { Group, Vector3 } from 'three';
+import { disposeMesh, mod } from 'utils/misc.js';
 import stateMixin from 'utils/stateMixin.js';
 import trackConfig from 'utils/trackConfig.js';
 import Path from './Path.js';
 
 export default class Track extends stateMixin(Group) {
-	constructor(paths = 3) {
+	constructor() {
 		super();
 
 		this.splineName = trackConfig.splines.find((el) => el.default).name;
-		this.paths = paths;
 
 		this._createPaths();
 	}
 
 	_createPaths() {
 		if (this.children.length > 0) {
-			this.clear();
+			this._dispose();
 		}
 
 		const spline = trackConfig.splines.find((el) => el.name === this.splineName);
+		const nbPoints = spline.points.length;
+		spline.normals = [];
 
-		for (let i = 0; i < this.paths; i++) {
-			this.add(new Path(1 + i * 0.02, spline));
+		let previousPoint, nextPoint, tangent, normal;
+
+		for (let i = 0; i < nbPoints; i++) {
+			previousPoint = spline.points[mod(i - 1, nbPoints)];
+			nextPoint = spline.points[mod(i + 1, nbPoints)];
+			tangent = nextPoint.clone().sub(previousPoint).normalize();
+
+			normal = new Vector3(0, -1, 0);
+			normal.cross(tangent);
+			spline.normals.push(normal);
 		}
+
+		for (let i = 0; i < trackConfig.numberOfPaths; i++) {
+			this.add(new Path(1 + i * trackConfig.spaceBetweenPaths, spline));
+		}
+	}
+
+	_dispose() {
+		disposeMesh(this);
+		this.clear();
 	}
 
 	onAttach() {

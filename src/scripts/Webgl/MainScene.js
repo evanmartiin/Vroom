@@ -7,6 +7,6 @@ export default class extends stateMixin(Scene) {
 	constructor() {
 		super();
 
-		this.add(new Track(10));
+		this.add(new Track());
 	}
 }
