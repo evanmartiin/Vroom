@@ -21,6 +21,7 @@ export default function (pane, instance, name) {
 	folder.addInput(trackConfig, 'numberOfPaths', { min: 0, max: 10, step: 1 }).on('change', () => instance._createPaths());
 	folder.addInput(trackConfig, 'spaceBetweenPaths', { min: 0, max: 0.08 }).on('change', () => instance._createPaths());
 	folder.addInput(trackConfig, 'distanceThreshold', { min: 0, max: 0.1 }).on('change', () => instance._createPaths());
+	folder.addInput(trackConfig, 'smoothness', { min: 0, max: 1 }).on('change', () => instance._createPaths());
 
 	return folder;
 }

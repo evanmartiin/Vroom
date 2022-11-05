@@ -4,22 +4,36 @@ import stateMixin from 'utils/stateMixin.js';
 import trackConfig from 'utils/trackConfig.js';
 
 export default class Path extends stateMixin(Group) {
-	constructor(scale = 1, spline) {
+	static allowedIntersections = [];
+
+	static dispose() {
+		Path.allowedIntersections = [];
+	}
+
+	constructor(scale = 1, spline, original = false) {
 		super();
+
+		this.pathScale = scale;
+		this.spline = spline;
+		this.original = original;
 
 		this.raycaster = new Raycaster();
 		this.raycaster.params.Line.threshold = 0.001;
 		this.intersects = [];
 
+		this._createPath();
+	}
+
+	_createPath() {
 		let points = [];
 		const segments = [];
 
-		let newPoint, segment, origin, target, localIntersects, validIntersects, nbOfPointsToRemove, nextPoint, distance;
+		let newPoint, segment, origin, target, localIntersects, validIntersects, nbOfPointsToRemove, nextPoint, distance, allowed;
 
-		spline.points.forEach((point, i) => {
+		this.spline.points.forEach((point, i) => {
 			// Compute new point coords based on the scale
 			newPoint = point.clone();
-			newPoint.add(spline.normals[i].clone().multiplyScalar(scale - 1));
+			newPoint.add(this.spline.normals[i].clone().multiplyScalar(this.pathScale - 1));
 			points.push(newPoint);
 
 			// Group points into path segments
@@ -32,7 +46,7 @@ export default class Path extends stateMixin(Group) {
 
 		// Add the last segment between the last point and the first one
 		segment = new Line(new BufferGeometry().setFromPoints([points[points.length - 1], points[0]]));
-		segment.name = `${spline.points.length}`;
+		segment.name = `${this.spline.points.length}`;
 		segments.push(segment);
 
 		segments.forEach((seg, i) => {
@@ -56,19 +70,33 @@ export default class Path extends stateMixin(Group) {
 				)
 				.map((el) => ({ origin: i, target: el }));
 			this.intersects.push(...validIntersects);
+
+			// Set an 'Allow' flag on original intersections
+			if (this.original) {
+				Path.allowedIntersections.push(...validIntersects.map((intersect) => ({ origin: intersect.origin, target: intersect.target.object.name })));
+			}
 		});
 
 		let tempPoints = [...points];
 
 		this.intersects.forEach((intersect, index) => {
-			nbOfPointsToRemove = Math.abs(parseInt(intersect.target.object.name) - intersect.origin);
-			for (let i = 0; i < nbOfPointsToRemove; i++) {
-				// Replace all points to remove by 'undefined' to keep the index
-				tempPoints.splice(intersect.origin + 1 + i + index, 1, undefined);
-			}
+			allowed = false;
+			Path.allowedIntersections.forEach((allowedIntersect) => {
+				if (!allowed) {
+					allowed = intersect.origin === allowedIntersect.origin && intersect.target.object.name === allowedIntersect.target;
+				}
+			});
 
-			// Add new intersection point
-			tempPoints.splice(intersect.origin + 1 + index, 0, intersect.target.point);
+			if (!allowed) {
+				nbOfPointsToRemove = Math.abs(parseInt(intersect.target.object.name) - intersect.origin);
+				for (let i = 0; i < nbOfPointsToRemove; i++) {
+					// Replace all points to remove by 'undefined' to keep the index
+					tempPoints.splice(intersect.origin + 1 + i + index, 1, undefined);
+				}
+
+				// Add new intersection point
+				tempPoints.splice(intersect.origin + 1 + index, 0, intersect.target.point);
+			}
 		});
 
 		points = tempPoints.filter((el) => el !== undefined);
@@ -86,10 +114,9 @@ export default class Path extends stateMixin(Group) {
 
 		points = tempPoints.filter((el) => el !== undefined);
 
-		this.geometry = new TubeGeometry(new CatmullRomCurve3(points, true, 'catmullrom', 0.5), 1000, 0.003, 4, true);
+		this.geometry = new TubeGeometry(new CatmullRomCurve3(points, true, 'catmullrom', trackConfig.smoothness), 1000, 0.003, 4, true);
 		this.material = new MeshBasicMaterial({ color: 0xff0000 });
 		this.mesh = new Mesh(this.geometry, this.material);
-
 		this.add(this.mesh);
 	}
 

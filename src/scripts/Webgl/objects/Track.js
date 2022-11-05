@@ -36,13 +36,14 @@ export default class Track extends stateMixin(Group) {
 		}
 
 		for (let i = 0; i < trackConfig.numberOfPaths; i++) {
-			this.add(new Path(1 + i * trackConfig.spaceBetweenPaths, spline));
+			this.add(new Path(1 + i * trackConfig.spaceBetweenPaths, spline, i === 0));
 		}
 	}
 
 	_dispose() {
 		disposeMesh(this);
 		this.clear();
+		Path.dispose();
 	}
 
 	onAttach() {
