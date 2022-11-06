@@ -1,4 +1,5 @@
 import path from 'path';
+import loadShader from './loadShader.js';
 
 const TYPES = {
 	'.glsl': 'fragmentShader',
@@ -10,32 +11,31 @@ const TYPES = {
 
 const EXTS = Object.keys(TYPES).reduce((p, v) => ((p[v] = true), p), {});
 
+const DEFAULT_EXTENSION = 'glsl';
+
 const hotShaderPath = '/config/hotShaders/hotShader.js';
 
-export default function (isDev) {
+export default function ({ isDev = false, warnDuplicatedImports = true, defaultExtension = DEFAULT_EXTENSION, compress = false, root = '/' } = {}) {
 	return {
-		name: 'rollup-glsl-plugin',
-		config: () => ({ resolve: { extensions: Object.keys(EXTS) } }),
+		name: 'vite-glsl-plugin',
+		// config: () => (),
+		config() {
+			return { resolve: { extensions: Object.keys(EXTS) } };
+		},
 		transform: async (src, id) => {
 			const split = path.extname(id).split('?');
 			const ext = split[0];
 			if (!EXTS[ext]) return;
 
 			const params = new URLSearchParams(split[1]);
-			const isHot = params.has('hotshader');
-			let code = src;
+			const isHot = params.has('hotShader');
 
-			// Minify only on build
-			if (!isDev) {
-				// Simple minification by triming
-				code = code
-					.trim()
-					.replace(/\r/g, '')
-					.replace(/[ \t]*\/\/.*\n/g, '') // remove //
-					.replace(/[ \t]*\/\*[\s\S]*?\*\//g, '') // remove /* */
-					.replace(/\n{2,}/g, '\n') // # \n+ to \n
-					.replace(/\t/g, ''); // remove \t
-			}
+			let code = loadShader(src, id, {
+				warnDuplicatedImports,
+				defaultExtension,
+				compress: compress && !isDev,
+				root,
+			});
 
 			if (isHot) {
 				const type = TYPES[ext];

@@ -31,11 +31,7 @@ export default ({ mode }) => {
 			},
 		},
 		plugins: [
-			hotShaders(env.VITE_DEBUG === 'true'),
-			// glsl({
-			// 	watch: true,
-			// 	compress: true,
-			// }),
+			hotShaders({ isDev: env.VITE_DEBUG === 'true', compress: true }),
 			ifdef({ DEBUG: env.VITE_DEBUG === 'true' }),
 			handlebars({
 				partialDirectory,

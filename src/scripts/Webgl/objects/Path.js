@@ -1,7 +1,8 @@
-import { BufferGeometry, CatmullRomCurve3, Group, Line, Mesh, MeshBasicMaterial, Raycaster, TubeGeometry, Vector3 } from 'three';
+import { BufferGeometry, CatmullRomCurve3, Group, Line, Mesh, Raycaster, TubeGeometry, Vector3 } from 'three';
 import { mod } from 'utils/misc.js';
 import stateMixin from 'utils/stateMixin.js';
 import trackConfig from 'utils/trackConfig.js';
+import PathMaterial from 'Webgl/Shaders/Path/PathMaterial.js';
 
 export default class Path extends stateMixin(Group) {
 	static allowedIntersections = [];
@@ -115,7 +116,7 @@ export default class Path extends stateMixin(Group) {
 		points = tempPoints.filter((el) => el !== undefined);
 
 		this.geometry = new TubeGeometry(new CatmullRomCurve3(points, true, 'catmullrom', trackConfig.smoothness), 1000, 0.003, 4, true);
-		this.material = new MeshBasicMaterial({ color: 0xff0000 });
+		this.material = new PathMaterial();
 		this.mesh = new Mesh(this.geometry, this.material);
 		this.add(this.mesh);
 	}

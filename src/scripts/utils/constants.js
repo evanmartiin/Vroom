@@ -26,15 +26,7 @@ const EVENTS_MAP = Object.fromEntries(
 	]),
 );
 
-const STORE_KEYS = {
-	VIEWPORT: i++,
-	VIEW: i++,
-	DOM_SCROLLER_ON: i++,
-	ABOUT_OPENED: i++,
-	PROMO_CODE_OPENED: i++,
-	INTRO_OPENED: i++,
-	SOUND_ON: i++,
-};
+const STORE_KEYS = {};
 
 const COLORS = Object.fromEntries(
 	classes

@@ -5,6 +5,7 @@ import stateMixin from 'utils/stateMixin.js';
 import trackConfig from 'utils/trackConfig.js';
 import Path from './Path.js';
 
+/** @extends Group */
 export default class Track extends stateMixin(Group) {
 	constructor() {
 		super();

@@ -24,9 +24,8 @@ export default class {
 
 	onResize() {}
 
-	onTick({ et, dt }) {
+	onTick({ et }) {
 		globalUniforms.uTime.value = et;
-		globalUniforms.uDelta.value = dt;
 	}
 
 	onRender() {

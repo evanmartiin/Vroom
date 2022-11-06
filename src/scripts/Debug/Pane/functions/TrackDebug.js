@@ -3,7 +3,7 @@ import trackConfig from 'utils/trackConfig.js';
 /**
  *
  * @param {*} pane
- * @param {import('Webgl/objects/Path.js').default} instance
+ * @param {import('Webgl/Objects/Path.js').default} instance
  */
 
 export default function (pane, instance, name) {
