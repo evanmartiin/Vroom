@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path, { resolve } from 'path';
 import { defineConfig, loadEnv } from 'vite';
+import routes from '../src/scripts/Dom/routes.js';
 
 import handlebars from 'vite-plugin-handlebars';
 import hotShaders from './hotShaders/hotShadersRollupPlugin.js';
@@ -44,8 +45,11 @@ export default ({ mode }) => {
 						return params;
 					},
 				},
-				context() {
-					return translation;
+				context(pagePath) {
+					return Object.assign(
+						routes.find((route) => route.file === pagePath),
+						translation,
+					);
 				},
 			}),
 		],

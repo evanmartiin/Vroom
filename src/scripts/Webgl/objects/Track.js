@@ -48,7 +48,7 @@ export default class Track extends stateMixin(Group) {
 	}
 
 	onAttach() {
-		app.debug.pane.add(this, 'Track', 0);
+		app.debug?.pane.add(this, 'Track', 0);
 	}
 
 	onTick() {}

@@ -1,3 +1,9 @@
+import routes from 'Dom/routes.js';
+import Router from './Router.js';
+
 export default function () {
-	return {};
+	const router = new Router({ routes });
+	return {
+		router,
+	};
 }
