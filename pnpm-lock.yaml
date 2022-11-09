@@ -5,14 +5,14 @@ specifiers:
   eslint-config-prettier: ^8.5.0
   eslint-plugin-html: ^7.1.0
   eslint-plugin-prettier: ^4.2.1
-  husky: ^8.0.1
+  husky: ^8.0.2
   prettier: ^2.7.1
-  sass: ^1.56.0
+  sass: ^1.56.1
   stats-js: ^1.0.1
   three: ^0.146.0
   tweakpane: ^3.1.0
   typescript: ^4.8.4
-  vite: ^3.2.2
+  vite: ^3.2.3
   vite-plugin-handlebars: ^1.6.0
 
 dependencies:
@@ -25,12 +25,12 @@ devDependencies:
   eslint-config-prettier: 8.5.0_eslint@8.27.0
   eslint-plugin-html: 7.1.0
   eslint-plugin-prettier: 4.2.1_v7o5sx5x3wbs57ifz6wc4f76we
-  husky: 8.0.1
+  husky: 8.0.2
   prettier: 2.7.1
-  sass: 1.56.0
+  sass: 1.56.1
   typescript: 4.8.4
-  vite: 3.2.2_sass@1.56.0
-  vite-plugin-handlebars: 1.6.0_sass@1.56.0
+  vite: 3.2.3_sass@1.56.1
+  vite-plugin-handlebars: 1.6.0_sass@1.56.1
 
 packages:
 
@@ -1003,8 +1003,8 @@ packages:
       entities: 4.4.0
     dev: true
 
-  /husky/8.0.1:
-    resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}
+  /husky/8.0.2:
+    resolution: {integrity: sha512-Tkv80jtvbnkK3mYWxPZePGFpQ/tT3HNSs/sasF9P2YfkMezDl3ON37YN6jUUI4eTg5LcyVynlb6r4eyvOmspvg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -1315,8 +1315,8 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /sass/1.56.0:
-    resolution: {integrity: sha512-WFJ9XrpkcnqZcYuLRJh5qiV6ibQOR4AezleeEjTjMsCocYW59dEG19U3fwTTXxzi2Ed3yjPBp727hbbj53pHFw==}
+  /sass/1.56.1:
+    resolution: {integrity: sha512-VpEyKpyBPCxE7qGDtOcdJ6fFbcpOM+Emu7uZLxVrkX8KVU/Dp5UF7WLvzqRuUhB6mqqQt1xffLoG+AndxTZrCQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -1426,18 +1426,18 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /vite-plugin-handlebars/1.6.0_sass@1.56.0:
+  /vite-plugin-handlebars/1.6.0_sass@1.56.1:
     resolution: {integrity: sha512-/TZ2FadScvJW6fmQ+3m3stm6ns+tDZ3VAgzEkSQYQurAnaQ/3MJfidhmTXzD1Hu1iwgkI3lNuEqybzjjKemCTg==}
     dependencies:
       handlebars: 4.7.7
-      vite: 2.9.15_sass@1.56.0
+      vite: 2.9.15_sass@1.56.1
     transitivePeerDependencies:
       - less
       - sass
       - stylus
     dev: true
 
-  /vite/2.9.15_sass@1.56.0:
+  /vite/2.9.15_sass@1.56.1:
     resolution: {integrity: sha512-fzMt2jK4vQ3yK56te3Kqpkaeq9DkcZfBbzHwYpobasvgYmP2SoAr6Aic05CsB4CzCZbsDv4sujX3pkEGhLabVQ==}
     engines: {node: '>=12.2.0'}
     hasBin: true
@@ -1457,22 +1457,25 @@ packages:
       postcss: 8.4.18
       resolve: 1.22.1
       rollup: 2.77.3
-      sass: 1.56.0
+      sass: 1.56.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
 
-  /vite/3.2.2_sass@1.56.0:
-    resolution: {integrity: sha512-pLrhatFFOWO9kS19bQ658CnRYzv0WLbsPih6R+iFeEEhDOuYgYCX2rztUViMz/uy/V8cLCJvLFeiOK7RJEzHcw==}
+  /vite/3.2.3_sass@1.56.1:
+    resolution: {integrity: sha512-h8jl1TZ76eGs3o2dIBSsvXDLb1m/Ec1iej8ZMdz+PsaFUsftZeWe2CZOI3qogEsMNaywc17gu0q6cQDzh/weCQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
+      '@types/node': '>= 14'
       less: '*'
       sass: '*'
       stylus: '*'
       sugarss: '*'
       terser: ^5.4.0
     peerDependenciesMeta:
+      '@types/node':
+        optional: true
       less:
         optional: true
       sass:
@@ -1488,7 +1491,7 @@ packages:
       postcss: 8.4.18
       resolve: 1.22.1
       rollup: 2.79.1
-      sass: 1.56.0
+      sass: 1.56.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
