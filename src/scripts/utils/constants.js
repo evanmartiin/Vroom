@@ -1,4 +1,4 @@
-import classes from 'styles/modules/colors.module.scss?inline';
+import classes from 'styles/tools/colors.scss?raw';
 let i = 0;
 
 const EVENTS = {
@@ -6,6 +6,9 @@ const EVENTS = {
 
 	ATTACH: i++,
 	RESIZE: i++,
+
+	ROUTE_CHANGE: i++,
+	SCROLL_TOP: i++,
 
 	TICK: i++,
 	RENDER: i++,
@@ -26,23 +29,17 @@ const EVENTS_MAP = Object.fromEntries(
 	]),
 );
 
-const STORE_KEYS = {
-	VIEWPORT: i++,
-	VIEW: i++,
-	DOM_SCROLLER_ON: i++,
-	ABOUT_OPENED: i++,
-	PROMO_CODE_OPENED: i++,
-	INTRO_OPENED: i++,
-	SOUND_ON: i++,
-};
+const STORE_KEYS = {};
 
-const COLORS = Object.fromEntries(
-	classes
-		.replace('{', '')
-		.replace('}', '')
-		.replace('\n', '')
-		.split(';')
-		.map((entry) => entry.split(':').map((inner) => inner.trim().replace('-', '_').toUpperCase())),
-);
+const cssColors = classes
+	.trim()
+	.replaceAll('{', '')
+	.replaceAll('}', '')
+	.replaceAll('\n', '')
+	.split(';')
+	.map((entry) => entry.split(':').map((inner) => inner.trim().replace('-', '_').replace('$', '').toUpperCase()));
+cssColors.pop();
+
+const COLORS = Object.fromEntries(cssColors);
 
 export { EVENTS, COLORS, EVENTS_MAP, STORE_KEYS };

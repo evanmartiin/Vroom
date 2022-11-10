@@ -1,6 +1,6 @@
 import { Scene } from 'three';
 import stateMixin from 'utils/stateMixin.js';
-import Track from './objects/Track.js';
+import Track from './Objects/Track.js';
 
 /** @extends Scene */
 export default class extends stateMixin(Scene) {

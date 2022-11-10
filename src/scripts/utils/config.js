@@ -10,9 +10,4 @@ const BREAKPOINTS = {
 	large: 1441,
 };
 
-const CUBES = {
-	countSqrt: 128,
-	// bounds: 10,
-};
-
-export { DEBUG, BREAKPOINTS, CUBES };
+export { DEBUG, BREAKPOINTS };

@@ -32,6 +32,11 @@ export default class Pane {
 				return { title: tab };
 			}),
 		}).pages;
+
+		const url = new URLSearchParams(location.search);
+		const index = url.get('tab');
+
+		if (index) this.tabs[parseInt(index)].controller_.onItemClick_();
 	}
 
 	addToParent(instance, name, parentName) {

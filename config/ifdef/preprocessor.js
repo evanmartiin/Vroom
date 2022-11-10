@@ -142,11 +142,7 @@ function apply_if(lines, ifBlock, defs, verbose = false, filePath) {
 	const ifRes = evaluate(ifCond, defs);
 	const log = (condition, outcome) => {
 		if (verbose) {
-			console.log(
-				`#if block lines [${ifBlock.startIx + 1}-${ifBlock.endIx + 1}]: Condition '${condition}' is ${outcome ? 'TRUE' : 'FALSE'}. ${
-					includeRange != null ? `Including lines [${includeRange[0] + 1}-${includeRange[1] + 1}]` : 'Excluding everything'
-				} (${filePath})`,
-			);
+			console.log(`#if block lines [${ifBlock.startIx + 1}-${ifBlock.endIx + 1}]: Condition '${condition}' is ${outcome ? 'TRUE' : 'FALSE'}. ${includeRange != null ? `Including lines [${includeRange[0] + 1}-${includeRange[1] + 1}]` : 'Excluding everything'} (${filePath})`);
 		}
 	};
 	if (ifRes) {

@@ -15,6 +15,7 @@ class App {
 
 	async init() {
 		this.$app = document.getElementById('app');
+		this.$root = document.getElementById('root');
 		this.$wrapper = document.getElementById('canvas-wrapper');
 
 		this.core = createCoreModules();

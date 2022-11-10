@@ -21,12 +21,12 @@ declare module "*.glsl" {
     export default content;
 }
 
-declare module "*.fs?hotshader" {
+declare module "*.fs?hotShader" {
     const content: HotShader;
     export default content;
 }
 
-declare module "*.vs?hotshader" {
+declare module "*.vs?hotShader" {
     const content: HotShader;
     export default content;
 }
