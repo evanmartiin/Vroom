@@ -21,6 +21,8 @@ export default function (pane, instance, name) {
 			instance.orbitControls.enableDamping = true;
 			instance.orbitControls.dampingFactor = 0.15;
 			instance.orbitControls.enableZoom = true;
+			instance.orbitControls.autoRotate = true;
+			instance.orbitControls.autoRotateSpeed = 10;
 			instance.orbitControls.update();
 			// instance.position.z += 10;
 			_far = instance.far;

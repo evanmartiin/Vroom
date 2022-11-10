@@ -1,5 +1,5 @@
 import app from 'scripts/App.js';
-import { Group, Vector3 } from 'three';
+import { BufferGeometry, Group, Line, MeshBasicMaterial, Vector3 } from 'three';
 import { disposeMesh, mod } from 'utils/misc.js';
 import stateMixin from 'utils/stateMixin.js';
 import trackConfig from 'utils/trackConfig.js';
@@ -34,7 +34,6 @@ export default class Track extends stateMixin(Group) {
 			normal.cross(tangent);
 			spline.normals.push(normal);
 		}
-
 		for (let i = 0; i < trackConfig.numberOfPaths; i++) {
 			this.add(new Path(1 + i * trackConfig.spaceBetweenPaths, spline, i === 0));
 		}
